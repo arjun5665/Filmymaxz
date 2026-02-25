@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmymaxZ- Watch Movies Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Banner Ad -->
+    <div id="topBanner" class="banner-ad top-banner" style="display: none;">
+        <a id="topBannerLink" href="#" target="_blank" rel="noopener">
+            <img id="topBannerImg" src="" alt="Advertisement">
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-film"></i>
+                <span>FilmymaxZ</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search movies...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="header-actions">
+                <button id="refreshBtn" class="refresh-btn" title="Refresh Data">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Filters -->
+    <div class="category-container">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="Action">Action</button>
+            <button class="category-btn" data-category="Comedy">Comedy</button>
+            <button class="category-btn" data-category="Drama">Drama</button>
+            <button class="category-btn" data-category="Web Series">Web Series</button>
+            <button class="category-btn" data-category="Horror">Horror</button>
+            <button class="category-btn" data-category="Sci-Fi">Sci-Fi</button>
+            <button class="category-btn" data-category="Romance">Romance</button>
+            <button class="category-btn" data-category="Suspense">Suspense</button>
+            <button class="category-btn" data-category="All Old Movies">Old Movies</button>
+            <button class="category-btn" data-category="18+Viral">18+Viral</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading movies...</p>
+        </div>
+
+        <!-- Movies Grid -->
+        <div id="moviesGrid" class="movies-grid"></div>
+
+        <!-- No Results -->
+        <div id="noResults" class="no-results" style="display: none;">
+            <i class="fas fa-film"></i>
+            <h3>No movies found</h3>
+            <p>Try a different search or category</p>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination" style="display: none;">
+            <button id="prevPageBtn" class="pagination-btn" disabled>
+                <i class="fas fa-chevron-left"></i>
+                <span>Previous</span>
+            </button>
+            <div class="pagination-info">
+                <span id="currentPageDisplay">Page 1</span>
+                <span class="pagination-separator">of</span>
+                <span id="totalPagesDisplay">1</span>
+            </div>
+            <button id="nextPageBtn" class="pagination-btn">
+                <span>Next</span>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Page Jump -->
+        <div id="pageJump" class="page-jump" style="display: none;">
+            <span>Go to page:</span>
+            <input type="number" id="pageJumpInput" min="1" value="1">
+            <button id="pageJumpBtn" class="page-jump-btn">Go</button>
+        </div>
+    </main>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Interstitial Ad Modal -->
+    <div id="interstitialModal" class="ad-modal">
+        <div class="ad-modal-content">
+            <div class="ad-timer">
+                <span>Ad closes in </span>
+                <span id="interstitialTimer">5</span>
+                <span>s</span>
+            </div>
+            <div class="ad-media-container">
+                <a id="interstitialLink" href="#" target="_blank" rel="noopener" class="ad-link">
+                    <img id="interstitialImg" src="" alt="Advertisement">
+                    <div class="ad-click-overlay">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Click to Visit</span>
+                    </div>
+                </a>
+            </div>
+            <button id="skipInterstitial" class="skip-btn" disabled>
+                Please wait...
+            </button>
+        </div>
+    </div>
+
+    <!-- Rewarded Ad Modal -->
+    <div id="rewardedModal" class="ad-modal">
+        <div class="ad-modal-content">
+            <div class="ad-timer">
+                <span>Watch ad to unlock downloads: </span>
+                <span id="rewardedTimer">10</span>
+                <span>s</span>
+            </div>
+            <div class="ad-media-container">
+                <a id="rewardedLink" href="#" target="_blank" rel="noopener" class="ad-link">
+                    <img id="rewardedImg" src="" alt="Advertisement">
+                    <video id="rewardedVideo" autoplay muted loop playsinline style="display: none;"></video>
+                    <div class="ad-click-overlay">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Click to Visit</span>
+                    </div>
+                </a>
+                <button id="soundToggleBtn" class="sound-toggle-btn" style="display: none;">
+                    <i class="fas fa-volume-mute"></i>
+                    <span>Tap to Unmute</span>
+                </button>
+            </div>
+            <button id="skipRewarded" class="skip-btn" disabled>
+                Please wait...
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Banner Ad -->
+    <div id="bottomBanner" class="banner-ad bottom-banner" style="display: none;">
+        <a id="bottomBannerLink" href="#" target="_blank" rel="noopener">
+            <img id="bottomBannerImg" src="" alt="Advertisement">
+        </a>
+    </div>
+
+    <!-- Cache Status -->
+    <div id="cacheStatus" class="cache-status"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
